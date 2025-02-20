@@ -1,0 +1,92 @@
+<div class="container" fxLayout="row" fxLayoutAlign="center center">
+  <form [formGroup]="formProduct">
+    <mat-card class="form-card">
+      <mat-card-header>
+        <h1 class="text-center">Crear una nueva orden</h1>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div fxLayout="row wrap" fxLayoutGap="16px">
+          <mat-form-field fxFlex="45%" appearance="fill">
+            <mat-label>Nombre de Producto</mat-label>
+            <input matInput formControlName="name" placeholder="Ingrese el Nombre del producto">
+          </mat-form-field>
+
+          <mat-form-field fxFlex="45%" appearance="fill">
+            <mat-label>Serial del Producto</mat-label>
+            <input matInput formControlName="serialNumber" placeholder="Ingrese el Número de serie">
+          </mat-form-field>
+        </div>
+
+        <mat-form-field fxFlex="100%" appearance="fill">
+          <mat-label>Descripción del Producto</mat-label>
+          <textarea matInput formControlName="description" placeholder="Ingrese la descripción"></textarea>
+        </mat-form-field>
+
+        <div fxLayout="row wrap" fxLayoutGap="16px">
+          <mat-form-field fxFlex="45%" appearance="fill">
+            <mat-label>Producto en Oferta</mat-label>
+            <mat-select formControlName="offer">
+              <mat-option [value]="true">Sí</mat-option>
+              <mat-option [value]="false">No</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="45%" appearance="fill">
+            <mat-label>Estatus</mat-label>
+            <mat-select formControlName="status">
+              <mat-option [value]="true">Activo</mat-option>
+              <mat-option [value]="false">Inactivo</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="45%" appearance="fill">
+            <mat-label>Precio del Producto</mat-label>
+            <input matInput formControlName="price" type="number" step="0.01" placeholder="Ingrese el precio">
+          </mat-form-field>
+
+          <mat-form-field fxFlex="45%" appearance="fill">
+            <mat-label>Costo del Producto</mat-label>
+            <input matInput formControlName="cost" type="number" step="0.01" placeholder="Ingrese el costo">
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutGap="16px">
+          <mat-form-field fxFlex="45%" appearance="fill">
+            <mat-label>Selecciona una Categoría</mat-label>
+            <mat-select formControlName="categoriaId">
+              <mat-option *ngFor="let category of category" [value]="category.id">
+                {{ category.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="45%" appearance="fill">
+            <mat-label>Selecciona una Marca</mat-label>
+            <mat-select formControlName="marcaId">
+              <mat-option *ngFor="let marca of marcas" [value]="marca.id">
+                {{ marca.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="file-container">
+          <button mat-raised-button color="primary" (click)="fileInput.click()">Seleccionar imágenes</button>
+          <input #fileInput type="file" multiple (change)="onFileSelected($event)" hidden />
+        </div>
+
+        <div *ngIf="images.length > 0" class="preview-container">
+          <h3>Previsualización:</h3>
+          <div class="image-grid">
+            <img *ngFor="let img of images; let i = index" [src]="img" class="preview-image" />
+          </div>
+        </div>
+
+        <div class="button-container">
+          <button mat-raised-button color="primary" (click)="CrearModificarProduct()">Crear Producto</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>
